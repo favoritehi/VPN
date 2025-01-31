@@ -1,0 +1,18 @@
+{
+  "server1": {
+    "endpoint": "195.133.63.89:51820",
+    "public_key": "135RhjE9eEeRGtm8hhlRuz17mPdfEcLldVSKOkl24V0=",
+    "interface": "wg0",
+    "subnet": "10.8.0.0/24",
+    "clients_count": 4,
+    "added_at": "2025-01-26 19:56:04.510268"
+  },
+  "server2": {
+    "endpoint": "90.156.208.122:51820",
+    "public_key": "ATcVWOJD2mLc7e8tDIs9hhULCisJiqHM7G+TocULNEY=",
+    "interface": "wg0",
+    "subnet": "10.9.0.0/24",
+    "clients_count": 3,
+    "added_at": "2025-01-26 19:56:04.513233"
+  }
+}

@@ -1,0 +1,165 @@
+import os
+import aiohttp
+import json
+import logging
+import asyncio
+from datetime import datetime, timedelta
+
+class WGEasyAPI:
+    def __init__(self, base_url, password):
+        self.base_url = base_url.rstrip('/')  # Убираем trailing slash если есть
+        self.password = password
+        self.session = None
+        self._logged_in = False
+        self._cookies = {}
+        self._headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        self._request_kwargs = {
+            'timeout': 30
+        }
+
+    async def __aenter__(self):
+        self.session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False))
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if self.session:
+            await self.session.close()
+
+    async def ensure_session(self):
+        """Убеждаемся что сессия существует и активна"""
+        if self.session is None or self.session.closed:
+            self.session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False))
+
+    async def _login(self):
+        """Авторизация в WireGuard Easy"""
+        if not self._logged_in:
+            try:
+                async with self.session.post(
+                    f"{self.base_url}/api/session", 
+                    headers=self._headers,
+                    json={"password": self.password},
+                    **self._request_kwargs
+                ) as response:
+                    logging.info(f"Login request headers: {self._headers}")
+                    logging.info(f"Login request body: {json.dumps({'password': self.password})}")
+                    
+                    if response.status in [200, 204]:  # Считаем оба статуса успешными
+                        self._logged_in = True
+                        if response.cookies.get('token'):
+                            self._cookies = {'token': response.cookies.get('token').value}
+                        logging.info("Successfully logged in to WireGuard Easy API")
+                        return True
+                    else:
+                        logging.error(f"Login failed with status {response.status}")
+                        return False
+            except Exception as e:
+                logging.error(f"Error during login: {str(e)}")
+                return False
+        return True
+
+    async def ensure_logged_in(self):
+        """Проверяем и обеспечиваем активную авторизацию"""
+        await self.ensure_session()
+        return await self._login()
+
+    async def get_clients(self):
+        """Получение списка клиентов"""
+        if not await self.ensure_logged_in():
+            raise Exception("Failed to login")
+        
+        try:
+            async with self.session.get(
+                f"{self.base_url}/api/wireguard/client",
+                headers=self._headers,
+                cookies=self._cookies,
+                **self._request_kwargs
+            ) as response:
+                if response.status == 200:
+                    return await response.json()
+                raise Exception(f'Error getting clients: {response.status}')
+        except Exception as e:
+            if 'Connection refused' in str(e):
+                await self.ensure_logged_in()
+                return await self.get_clients()
+            raise Exception(f'Connection error getting clients: {str(e)}')
+
+    async def get_client(self, name):
+        """Получение информации о конкретном клиенте"""
+        clients = await self.get_clients()
+        for client in clients:
+            if client['name'] == name:
+                return client
+        return None
+
+    async def create_client(self, name):
+        """Создание нового клиента"""
+        if not await self.ensure_logged_in():
+            raise Exception("Failed to login")
+        
+        try:
+            async with self.session.post(
+                f"{self.base_url}/api/wireguard/client",
+                headers=self._headers,
+                cookies=self._cookies,
+                json={"name": name},
+                **self._request_kwargs
+            ) as response:
+                if response.status == 200:
+                    return await response.json()
+                raise Exception(f'Error creating client: {response.status}')
+        except Exception as e:
+            if 'Connection refused' in str(e):
+                await self.ensure_logged_in()
+                return await self.create_client(name)
+            raise Exception(f'Connection error creating client: {str(e)}')
+
+    async def delete_client(self, name):
+        """Удаление клиента"""
+        if not await self.ensure_logged_in():
+            raise Exception("Failed to login")
+        
+        try:
+            async with self.session.delete(
+                f"{self.base_url}/api/wireguard/client/{name}",
+                headers=self._headers,
+                cookies=self._cookies,
+                **self._request_kwargs
+            ) as response:
+                if response.status == 200:
+                    return True
+                raise Exception(f'Error deleting client: {response.status}')
+        except Exception as e:
+            if 'Connection refused' in str(e):
+                await self.ensure_logged_in()
+                return await self.delete_client(name)
+            raise Exception(f'Connection error deleting client: {str(e)}')
+
+    async def update_client(self, name, enable=True):
+        """Включение/выключение клиента"""
+        if not await self.ensure_logged_in():
+            raise Exception("Failed to login")
+        
+        try:
+            async with self.session.post(
+                f"{self.base_url}/api/wireguard/client/{name}/enable",
+                headers=self._headers,
+                cookies=self._cookies,
+                json={"enable": enable},
+                **self._request_kwargs
+            ) as response:
+                if response.status == 200:
+                    return await response.json()
+                raise Exception(f'Error updating client: {response.status}')
+        except Exception as e:
+            if 'Connection refused' in str(e):
+                await self.ensure_logged_in()
+                return await self.update_client(name, enable)
+            raise Exception(f'Connection error updating client: {str(e)}')
+
+    async def close(self):
+        """Закрытие сессии"""
+        if self.session and not self.session.closed:
+            await self.session.close()

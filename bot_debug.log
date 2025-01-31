@@ -1,0 +1,73 @@
+2025-01-31 11:11:37,967 [INFO] Checking database structure...
+2025-01-31 11:11:37,968 [INFO] Existing tables: []
+2025-01-31 11:11:37,970 [INFO] Created users table
+2025-01-31 11:11:37,972 [INFO] Recreated subscriptions table with new structure
+2025-01-31 11:11:37,974 [INFO] Recreated payments table with new structure
+2025-01-31 11:11:37,976 [INFO] Recreated client_configs table with new structure
+2025-01-31 11:11:37,981 [INFO] Created notifications table
+2025-01-31 11:11:37,988 [INFO] Database structure check completed
+2025-01-31 11:11:37,993 [DEBUG] Using selector: EpollSelector
+2025-01-31 11:11:37,999 [DEBUG] WG API Configuration - Host: 195.133.63.89, Port: 51821, Password length: 11
+2025-01-31 11:11:37,999 [INFO] Initialized WireGuard API with base URL: http://195.133.63.89:51821
+2025-01-31 11:11:37,999 [DEBUG] Created new aiohttp session
+2025-01-31 11:11:37,999 [INFO] Attempting to login to WireGuard API at http://195.133.63.89:51821/api/session
+2025-01-31 11:11:38,017 [DEBUG] Response status: 204, headers: {'X-Powered-By': 'Express', 'Set-Cookie': 'connect.sid=s%3AT3kYvA6qG7N7b5MRwErFbWceN5_dXIwD.p0NwhbIqyyw9Nsi3Bo54uaUXQ%2B%2BfIXCbCAOB3u7Oe1k; Path=/; HttpOnly', 'Date': 'Fri, 31 Jan 2025 08:11:38 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'}
+2025-01-31 11:11:38,017 [DEBUG] Response body: 
+2025-01-31 11:11:38,017 [INFO] Successfully logged in to WireGuard API
+2025-01-31 11:11:38,017 [INFO] Successfully connected to WireGuard API
+2025-01-31 11:11:38,018 [INFO] Start polling
+2025-01-31 11:11:38,180 [INFO] Run polling for bot @SAFEVPNWR_BOT id=7791575073 - 'SAFEVPN'
+2025-01-31 11:11:38,424 [INFO] Update id=879080061 is handled. Duration 167 ms by bot id=7791575073
+2025-01-31 11:11:38,443 [INFO] Update id=879080060 is handled. Duration 187 ms by bot id=7791575073
+2025-01-31 11:11:38,444 [INFO] Update id=879080059 is handled. Duration 189 ms by bot id=7791575073
+2025-01-31 11:11:41,531 [INFO] Update id=879080062 is handled. Duration 66 ms by bot id=7791575073
+2025-01-31 11:11:42,804 [INFO] Processing subscription duration. Callback data: sub_26h
+2025-01-31 11:11:42,805 [INFO] Duration: 1.08 days: 1.08
+2025-01-31 11:11:42,805 [INFO] Duration text: 26 часов, Price: 50
+2025-01-31 11:11:42,805 [INFO] State after update: {'duration': 1.08, 'amount': 50, 'days': 1.08}
+2025-01-31 11:11:42,874 [INFO] New state: <State 'PaymentStates:waiting_for_payment_method'>
+2025-01-31 11:11:42,874 [INFO] Update id=879080063 is handled. Duration 71 ms by bot id=7791575073
+2025-01-31 11:11:43,602 [INFO] Processing payment method selection
+2025-01-31 11:11:43,602 [INFO] Current state data: {'duration': 1.08, 'amount': 50, 'days': 1.08}
+2025-01-31 11:11:43,723 [INFO] New state: <State 'PaymentStates:waiting_for_screenshot'>
+2025-01-31 11:11:43,723 [INFO] Update id=879080064 is handled. Duration 122 ms by bot id=7791575073
+2025-01-31 11:11:47,457 [INFO] Added new payment: ID=1d1185e9-14c3-4d66-94ab-dd8bd7606601, user_id=6162760309, amount=50.0, duration=1.08
+2025-01-31 11:11:47,589 [INFO] Update id=879080065 is handled. Duration 135 ms by bot id=7791575073
+2025-01-31 11:11:49,630 [INFO] Updated payment 1d1185e9-14c3-4d66-94ab-dd8bd7606601 status to confirmed
+2025-01-31 11:11:49,631 [INFO] Updated payment 1d1185e9-14c3-4d66-94ab-dd8bd7606601 status to confirmed
+2025-01-31 11:11:49,631 [INFO] Creating new client with name: user_6162760309
+2025-01-31 11:11:49,666 [DEBUG] Response status: 200, headers: {'X-Powered-By': 'Express', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '321', 'Date': 'Fri, 31 Jan 2025 08:11:49 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'}
+2025-01-31 11:11:49,667 [INFO] Created client: {
+  "name": "user_6162760309",
+  "address": "10.8.0.2",
+  "privateKey": "QPZTGiJCNOKdy9EYCo0XNcroxPkXSN21o/OlpZJUq0k=",
+  "publicKey": "MhJ3ij1yneYPeon7gu+/dhBZWQRxLh4wR06gwUVRsmU=",
+  "preSharedKey": "raNUKrz1+NfG34f0r9jKfDsz8Vs6lLZpl0Y3yKeE8U4=",
+  "createdAt": "2025-01-31T08:11:49.646Z",
+  "updatedAt": "2025-01-31T08:11:49.646Z",
+  "enabled": true
+}
+2025-01-31 11:11:49,667 [INFO] Created client: {
+  "name": "user_6162760309",
+  "address": "10.8.0.2",
+  "privateKey": "QPZTGiJCNOKdy9EYCo0XNcroxPkXSN21o/OlpZJUq0k=",
+  "publicKey": "MhJ3ij1yneYPeon7gu+/dhBZWQRxLh4wR06gwUVRsmU=",
+  "preSharedKey": "raNUKrz1+NfG34f0r9jKfDsz8Vs6lLZpl0Y3yKeE8U4=",
+  "createdAt": "2025-01-31T08:11:49.646Z",
+  "updatedAt": "2025-01-31T08:11:49.646Z",
+  "enabled": true
+}
+2025-01-31 11:11:49,718 [ERROR] Failed to get server config. Status: 404
+2025-01-31 11:11:49,719 [INFO] Using WG_SERVER_PUBLIC_KEY from environment
+2025-01-31 11:11:49,722 [ERROR] Failed to get QR code. Status: 404
+2025-01-31 11:11:49,722 [INFO] Generated client configuration
+2025-01-31 11:11:49,724 [INFO] Saved client config for user 6162760309
+2025-01-31 11:11:49,724 [INFO] Saved client configuration to database
+2025-01-31 11:11:49,724 [INFO] Adding subscription for user 6162760309 at 2025-01-31 11:11:49, duration: 32.400000000000006 days
+2025-01-31 11:11:49,724 [INFO] Creating new subscription for user 6162760309 until 2025-03-04 20:47:49
+2025-01-31 11:11:49,725 [INFO] Created new subscription for user 6162760309
+2025-01-31 11:11:49,726 [INFO] Added/extended subscription for 32.400000000000006 days
+2025-01-31 11:11:49,785 [INFO] Sent confirmation message to user 6162760309
+2025-01-31 11:11:49,879 [INFO] Updated admin's message
+2025-01-31 11:11:49,951 [INFO] Update id=879080066 is handled. Duration 324 ms by bot id=7791575073
+2025-01-31 11:11:55,057 [INFO] Update id=879080067 is not handled. Duration 2 ms by bot id=7791575073

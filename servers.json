@@ -1,0 +1,20 @@
+{
+  "server1": {
+    "endpoint": "90.156.208.122:51820",
+    "public_key": "ATcVWOJD2mLc7e8tDIs9hhULCisJiqHM7G+TocULNEY=",
+    "interface": "wg0",
+    "subnet": "10.8.0.0/24",
+    "api_host": "90.156.208.122",
+    "api_port": "51821",
+    "api_password": "4ebyrek2016"
+  },
+  "server0": {
+    "endpoint": "195.133.63.89:51820",
+    "public_key": "0buAL09+/QlHnTo0j5tymiWnvHrEfMLjzu6EZKTUKgo=",
+    "interface": "wg0",
+    "subnet": "10.8.0.3/24",
+    "api_host": "195.133.63.89",
+    "api_port": "51821",
+    "api_password": "4ebyrek2016"
+  }
+}
